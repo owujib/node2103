@@ -1,0 +1,29 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "a simple project for nodejs and express  ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/owujib/node2103.git"
+  },
+  "keywords": [
+    "server",
+    "express",
+    "nodejs",
+    "ejs",
+    "html",
+    "javascript",
+    "api"
+  ],
+  "author": "owujib",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/owujib/node2103/issues"
+  },
+  "homepage": "https://github.com/owujib/node2103#readme"
+}
