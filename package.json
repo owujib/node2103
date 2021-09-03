@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js",
     "start": "node index.js"
   },
   "repository": {
@@ -25,5 +26,12 @@
   "bugs": {
     "url": "https://github.com/owujib/node2103/issues"
   },
-  "homepage": "https://github.com/owujib/node2103#readme"
+  "homepage": "https://github.com/owujib/node2103#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
