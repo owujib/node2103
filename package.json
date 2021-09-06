@@ -4,8 +4,9 @@
   "description": "a simple project for nodejs and express  ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,12 @@
   "bugs": {
     "url": "https://github.com/owujib/node2103/issues"
   },
-  "homepage": "https://github.com/owujib/node2103#readme"
+  "homepage": "https://github.com/owujib/node2103#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
