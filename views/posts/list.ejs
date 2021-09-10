@@ -14,8 +14,8 @@
         </div>
       </div>
 
-      <div>
-        <h2 class="display-4">Posts</h2>
+      <div class="posts">
+        <h2 class="display-4" id="header-posts">Posts</h2>
 
         <% posts.map(post =>{ %>
         <div class="w-75 mb-3 p-3" style="background-color: #fff">
@@ -31,5 +31,21 @@
         <% }) %>
       </div>
     </div>
+    <script>
+      let posts = document.querySelector('.posts');
+      let postHeader = document.querySelector('#header-posts');
+      if (navigator.onLine !== true) {
+        let errorDiv = document.createElement('div');
+        errorDiv.innerHTML = `
+            <div class="container">
+              <div class="alert alert-danger">
+                Ooops your are not connected to the internet
+              </div>
+
+            </div>
+        `;
+        posts.insertBefore(errorDiv, postHeader);
+      }
+    </script>
   </body>
 </html>

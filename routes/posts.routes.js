@@ -100,7 +100,6 @@ router.delete('/delete/:id', async (req, res, next) => {
   try {
     const { id } = req.params;
     const post = await Post.findById({ _id: id });
-    console.log(post.image);
     fs.unlinkSync(post.image);
     await post.delete();
     res.redirect('/post');
