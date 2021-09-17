@@ -1,10 +1,10 @@
 const express = require('express'); //import express
 const path = require('path');
 const mongoose = require('mongoose');
-const methodOverride = require('method-override');
 
 const postsRoutes = require('./routes/posts.routes');
 const userRoutes = require('./routes/user.routes');
+const categoryRoutes = require('./routes/category.routes');
 //initialize our app
 const app = express();
 
@@ -24,6 +24,7 @@ app.use((req, res, next) => {
 //routes middleware
 app.use('/api/post', postsRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/category', categoryRoutes);
 
 //api response
 app.get('/api/names', (req, res, next) => {

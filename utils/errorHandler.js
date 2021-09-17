@@ -1,6 +1,3 @@
-/**
- *
- */
 class ApiError extends Error {
   /**
    *

@@ -93,3 +93,17 @@ exports.authorization = async (req, res, next) => {
     return next(error);
   }
 };
+
+/**
+ *
+ * @param  {...string} roles a collection of restricted roles
+ * @returns express response
+ */
+exports.roles = (...roles) => {
+  return (req, res, next) => {
+    if (roles.includes(req.user.roles)) {
+      return next(new ApiError('forbidden', 403));
+    }
+    return next();
+  };
+};
