@@ -3,22 +3,16 @@ const path = require('path');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 
-const homeRoutes = require('./routes/home.routes');
 const postsRoutes = require('./routes/posts.routes');
+const userRoutes = require('./routes/user.routes');
 //initialize our app
 const app = express();
 
 //post middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(methodOverride('_method'));
-
-//templating set up
-app.set('views', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 //static route middleware
-app.use(express.static(path.join(__dirname, 'public'))); //static css/img/js
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 //global vars
@@ -28,8 +22,8 @@ app.use((req, res, next) => {
 });
 
 //routes middleware
-app.use('/', homeRoutes);
-app.use('/post', postsRoutes);
+app.use('/api/post', postsRoutes);
+app.use('/api/user', userRoutes);
 
 //api response
 app.get('/api/names', (req, res, next) => {
@@ -39,10 +33,18 @@ app.get('/api/names', (req, res, next) => {
 });
 
 app.all('*', (req, res, next) => {
-  res.render('404.ejs', {
-    title: 'Error: 404',
-    data: 'oops page not found',
-    server_url: req.server_url,
+  return next(new Error('app route not found'));
+});
+
+//global error handler
+app.use((err, req, res, next) => {
+  err.statusCode = err.statusCode || 500;
+  err.status = err.status || 'error';
+  res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    data: err.message,
+    stack: err.stack,
   });
 });
 

@@ -5,6 +5,8 @@ const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 
 const Post = require('../models/Post');
+const postController = require('../controller/postController');
+const authController = require('../controller/authController');
 
 // cloudinary configuration
 cloudinary.config({
@@ -43,72 +45,11 @@ const upload = multer({
 
 const router = express.Router();
 
+router.use(postController.logMethod);
+
 //RETRIEVE
-router.get('/', async (req, res, next) => {
-  try {
-    let posts = await Post.find();
-    res.render('posts/list.ejs', {
-      title: 'Posts',
-      posts,
-      server_url: req.server_url,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+router.get('/', authController.authorization, postController.getAllPost);
 
-router.get('/:id', async (req, res, next) => {
-  try {
-    let { id } = req.params;
-    let post = await Post.findById({ _id: id });
-    res.render('posts/single.ejs', {
-      title: 'Posts -' + post.title,
-      post,
-      server_url: req.server_url,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.get('/create/post', (req, res, next) => {
-  res.render('posts/create.ejs', {
-    title: 'create post',
-    server_url: req.server_url,
-  });
-});
-
-//CREATE
-router.post('/create/post', upload.single('image'), async (req, res, next) => {
-  try {
-    const { file, body } = req;
-    let cloudFile = await cloudinary.uploader.upload(file.path);
-
-    const data = {
-      image: cloudFile.url,
-      ...body,
-    };
-    fs.unlinkSync(`uploads/pictures/${file?.filename}`);
-    const post = await Post.create(data);
-    res.redirect(`/post/${post.id}`);
-  } catch (error) {
-    next(error);
-  }
-});
-
-router.delete('/delete/:id', async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const post = await Post.findById({ _id: id });
-    // let cloudFile = await cloudinary.uploader.destroy(post.image);
-    // console.log(cloudFile);
-
-    // fs.unlinkSync(post.image);
-    await post.delete();
-    res.redirect('/post');
-  } catch (error) {
-    next(error);
-  }
-});
+router.get('/:id', postController.getSinglePost);
 
 module.exports = router;
