@@ -10,18 +10,22 @@ exports.getAllPost = async (req, res, next) => {
         select: 'username _id',
       })
       .populate({ path: 'category', select: '_id title' });
-    res.status(200).json({
+
+    if (posts.length === 0) {
+      return next(new ApiError('no data found', 404));
+    }
+    return res.status(200).json({
       status: 'success',
       data: posts,
     });
   } catch (error) {
-    next(error);
+    return next(error);
   }
 };
 exports.getAllUsersPost = async (req, res, next) => {
   try {
     let posts = await Post.find({ user: req.params.id });
-    res.status(200).json({
+    return res.status(200).json({
       status: 'success',
       data: posts,
     });
