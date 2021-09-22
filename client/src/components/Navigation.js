@@ -27,11 +27,40 @@ function Navigation() {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div ref={collapse} className="collapse navbar-collapse">
+          <div ref={collapse} className="collapse show navbar-collapse">
             <ul className="navbar-nav">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
                   Home
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/main/posts"
+                >
+                  Posts
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/main/categories"
+                >
+                  Categories
+                </Link>
+              </li>
+            </ul>
+            <ul className="navbar-nav justify-content-end">
+              <li className="nav-item">
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/login"
+                >
+                  Login
                 </Link>
               </li>
             </ul>

@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
-import { Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import './App.css';
-import Navigation from './components/Navigation';
-import LeftComponent from './components/LeftComponent';
-import RightComponent from './components/RightComponent';
-import Login from './components/Login';
-import Main from './components/Main';
+import LeftComponent from './LeftComponent';
+import RightComponent from './RightComponent';
 
-function App() {
+function Main() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
@@ -31,14 +25,26 @@ function App() {
   console.log(post);
   return (
     <div id="main">
-      <Navigation />
-      <div className="mt-4 container">
-        <Route path="/login" component={Login} />
-
-        <Route path="/main" component={Main} />
-      </div>
+      <Row>
+        <Col md={9}>
+          <LeftComponent
+            posts={post}
+            error={err}
+            loading={loading}
+            show={show}
+          />
+        </Col>
+        <Col md={3}>
+          <RightComponent
+            posts={post}
+            error={err}
+            loading={loading}
+            show={show}
+          />
+        </Col>
+      </Row>
     </div>
   );
 }
 
-export default App;
+export default Main;

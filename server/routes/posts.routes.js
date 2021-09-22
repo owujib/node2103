@@ -13,7 +13,7 @@ const router = express.Router();
 //RETRIEVE
 router.get('/', postController.getAllPost);
 
-// router.get('/:id', postController.getSinglePost);
+router.get('/:id', postController.getSinglePost);
 
 router.use(authorization);
 router.post('/new/post', postController.creatPosts);
