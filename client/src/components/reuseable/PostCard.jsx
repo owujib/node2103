@@ -14,7 +14,7 @@ export default function PostCard({
   return (
     <div key={_id} className="container card bg-light mb-3">
       <h4 className="display-4">
-        <Link to={'/posts/' + _id}>{title}</Link>
+        <Link to={'/main/posts/' + _id}>{title}</Link>
       </h4>
       <div>{user?.username}</div>
       <div className="d-flex">

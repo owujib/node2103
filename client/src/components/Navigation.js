@@ -1,72 +1,70 @@
-import React, { createRef } from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Container, Navbar, Nav } from 'react-bootstrap';
 
-function Navigation() {
-  const collapse = createRef();
-  const handleNav = () => {
-    collapse.current.classList.toggle('show');
-  };
+import { logout } from '../actions/auth.actions';
+function Navigation({ state }) {
+  let { isAuthenticated, isLoading, user } = state;
+
+  const dispatch = useDispatch();
+  const logoutUser = bindActionCreators(logout, dispatch);
+  const auth = useSelector((data) => data.auth);
+
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-          <Link className="navbar-brand" to="/">
-            Navbar
-          </Link>
-          <button
-            className="navbar-toggler"
-            onClick={() => {
-              handleNav();
-            }}
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div ref={collapse} className="collapse show navbar-collapse">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/main/posts"
-                >
-                  Posts
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
-                  to="/main/categories"
-                >
-                  Categories
-                </Link>
-              </li>
-            </ul>
-            <ul className="navbar-nav justify-content-end">
-              <li className="nav-item">
-                <Link
-                  className="nav-link active"
-                  aria-current="page"
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Brand as={Link} to="/">
+            React-Bootstrap
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link as={Link} to="/">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/main/posts">
+                Posts
+              </Nav.Link>
+            </Nav>
+
+            {isAuthenticated ? (
+              <>
+                <Navbar.Text>
+                  Signed in as: <Link to="/profile">{user?.username}</Link>
+                </Navbar.Text>
+                <Navbar.Text>
+                  <button
+                    onClick={() => logoutUser()}
+                    className="btn btn-danger mx-4 text-light"
+                  >
+                    Logout
+                  </button>
+                </Navbar.Text>
+              </>
+            ) : (
+              <>
+                <Nav.Link
+                  as={Link}
+                  className="btn btn-primary text-light mx-2"
                   to="/login"
                 >
                   Login
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  className="text-light btn btn-primary"
+                  to="/register"
+                >
+                  Register
+                </Nav.Link>
+              </>
+            )}
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </div>
   );
 }

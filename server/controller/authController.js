@@ -76,6 +76,7 @@ exports.authorization = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
     }
 
+    console.log(token);
     if (!token) {
       return next(new Error('please login to view this resource'));
     }

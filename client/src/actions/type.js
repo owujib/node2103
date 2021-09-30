@@ -1,0 +1,11 @@
+export const FETCH_POSTS = 'FETCH_POSTS';
+export const FETCH_POSTS_ERR = 'FETCH_POSTS_ERR';
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES';
+export const FETCH_CATEGORIES_ERR = 'FETCH_CATEGORIES_ERR';
+export const LOGIN = 'LOGIN';
+export const LOGIN_ERR = 'LOGIN_ERR';
+export const CREATE_POST = 'CREATE_POST';
+export const CREATE_POST_ERR = 'CREATE_POST_ERR';
+export const GET_USER_PROFILE = 'GET_USER_PROFILE';
+export const GET_USER_PROFILE_ERR = 'GET_USER_PROFILE_ERR';
+export const LOGOUT = 'LOGOUT';

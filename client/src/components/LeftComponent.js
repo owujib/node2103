@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import NewPost from './NewPost';
 import Post from './Post';
 import PostDetail from './PostDetail';
+import { PrivateRoute } from './reuseable/PrivateRoute';
 
 export default function LeftComponent(props) {
   const { posts, error, loading, show } = props;
@@ -23,7 +24,13 @@ export default function LeftComponent(props) {
       />
 
       <Route exact path="/main/posts/:id" component={PostDetail} />
-      <Route exact path="/main/new/post" component={NewPost} />
+      <PrivateRoute
+        path="/main/new/post"
+        exact
+        roles={['admin', 'user']}
+        component={NewPost}
+      />
+      {/* <Route exact path="/main/new/post" /> */}
     </>
   );
 }

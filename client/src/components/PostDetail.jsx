@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Alert, Spinner } from 'react-bootstrap';
 import PostCard from './reuseable/PostCard';
+import { Link } from 'react-router-dom';
 
 export default function PostDetail(props) {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
   const [show, setShow] = useState(false);
+  const user = JSON.parse(localStorage.getItem('media_user'));
 
   useEffect(() => {
     axios
@@ -35,6 +37,11 @@ export default function PostDetail(props) {
           ) : (
             <div>
               <div className="container">
+                {user?._id === post?.user._id ? (
+                  <Link className="btn btn-warning">Edit</Link>
+                ) : (
+                  ''
+                )}
                 <PostCard {...post} />
               </div>
             </div>

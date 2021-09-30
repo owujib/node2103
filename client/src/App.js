@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import './App.css';
 import Navigation from './components/Navigation';
-import LeftComponent from './components/LeftComponent';
-import RightComponent from './components/RightComponent';
 import Login from './components/Login';
 import Main from './components/Main';
+import { userProfile } from './actions/auth.actions';
 
 function App() {
   const [post, setPost] = useState(null);
@@ -16,7 +16,11 @@ function App() {
   const [err, setErr] = useState(null);
   const [show, setShow] = useState(false);
 
+  const dispatch = useDispatch();
+  const getUserProfile = bindActionCreators(userProfile, dispatch);
+  const state = useSelector((data) => data);
   useEffect(() => {
+    getUserProfile();
     axios
       .get('http://localhost:5000/api/post')
       .then(({ data }) => {
@@ -28,10 +32,9 @@ function App() {
         setShow(!show);
       });
   }, []);
-  console.log(post);
   return (
     <div id="main">
-      <Navigation />
+      <Navigation state={state.auth} />
       <div className="mt-4 container">
         <Route path="/login" component={Login} />
 
